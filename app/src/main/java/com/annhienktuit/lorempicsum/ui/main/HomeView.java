@@ -6,6 +6,8 @@ public interface HomeView {
 
     void showPhotoList();
 
+    void hideRandomImage();
+
     void showRandomImage(Photo photo);
 
     void showLoadingIndicator();

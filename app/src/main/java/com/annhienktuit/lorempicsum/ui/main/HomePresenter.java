@@ -44,12 +44,14 @@ public class HomePresenter implements HomePresenterInterface{
             @Override
             public void onNext(@NonNull Photo photo) {
                 Log.i(TAG, photo.getImageUrl());
+                homeView.hideLoadingIndicator();
                 homeView.showRandomImage(photo);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.i(TAG, e.toString());
+                homeView.showErrorToast("Error while getting photo, please try again :(");
             }
 
             @Override
@@ -59,9 +61,8 @@ public class HomePresenter implements HomePresenterInterface{
         };
     }
 
-    public static int randomNumber() {
+    public int randomNumber() {
         Random ran = new Random();
-        int x = ran.nextInt(1) + 1000;
-        return x;
+        return ran.nextInt(1000);
     }
 }
