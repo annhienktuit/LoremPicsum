@@ -5,6 +5,10 @@ plugins {
 android {
     compileSdk 31
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.annhienktuit.lorempicsum"
         minSdk 23
