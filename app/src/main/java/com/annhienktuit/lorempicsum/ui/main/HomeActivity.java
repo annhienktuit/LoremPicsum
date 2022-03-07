@@ -2,6 +2,9 @@ package com.annhienktuit.lorempicsum.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -30,6 +33,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
     ImageView imgRandom;
 
+    RecyclerView recyclerViewPhotoList;
+
+    private AlbumListAdapter albumListAdapter;
+
     ProgressBar indicator;
 
     @Override
@@ -47,6 +54,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         showLoadingIndicator();
         presenter = new HomePresenter(this);
         presenter.getPhoto();
+        albumListAdapter = new AlbumListAdapter(this);
+        recyclerViewPhotoList = binding.recyclerViewAlbumList;
+        recyclerViewPhotoList.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+        recyclerViewPhotoList.setAdapter(albumListAdapter);
     }
 
     private void handleClickEvent() {
@@ -62,6 +73,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
             public void onClick(View v) {
                 startRotateAnimation(binding.btnReload);
                 presenter.getPhoto();
+                albumListAdapter = null;
+                albumListAdapter = new AlbumListAdapter(getApplicationContext());
+                recyclerViewPhotoList.setAdapter(albumListAdapter);
             }
         });
     }

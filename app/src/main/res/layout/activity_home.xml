@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvExplore"
@@ -63,6 +63,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgRandom">
@@ -101,6 +102,27 @@
                 android:textColor="@color/black"/>
 
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnSeeMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlAuthor"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:text="Browse More"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato"
+            android:textSize="14sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAlbumList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSeeMore"
+            android:layout_marginTop="20dp"/>
+
 
 
     </RelativeLayout>

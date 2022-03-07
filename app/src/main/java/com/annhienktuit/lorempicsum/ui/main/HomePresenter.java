@@ -61,7 +61,7 @@ public class HomePresenter implements HomePresenterInterface{
         };
     }
 
-    public int randomNumber() {
+    public static int randomNumber() {
         Random ran = new Random();
         return ran.nextInt(1000);
     }
