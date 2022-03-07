@@ -41,7 +41,7 @@ public class HomePresenter implements HomePresenterInterface{
     public DisposableObserver<Photo> getObserver(){
         return new DisposableObserver<Photo>() {
             @Override
-            public void onNext(@androidx.annotation.NonNull Photo photo) {
+            public void onNext(@NonNull Photo photo) {
                 Log.i(TAG, photo.getImageUrl());
                 homeView.setAuthorName(photo.getAuthor());
                 homeView.hideLoadingIndicator();

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -58,6 +60,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         binding.btnReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startRotateAnimation(binding.btnReload);
                 presenter.getPhoto();
             }
         });
@@ -106,5 +109,20 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     @Override
     public void setAuthorName(String authorName) {
         binding.tvAuthor.setText(authorName);
+    }
+
+    @Override
+    public void startRotateAnimation(View v) {
+        Animation rotateAnimation = new RotateAnimation(0.0f, 360.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        rotateAnimation.setRepeatCount(0);
+        rotateAnimation.setDuration(2000);
+        v.setAnimation(rotateAnimation);
+    }
+
+    @Override
+    public void stopRotateAnimation(View v) {
+        v.clearAnimation();
     }
 }

@@ -1,5 +1,7 @@
 package com.annhienktuit.lorempicsum.ui.main;
 
+import android.view.View;
+
 import com.annhienktuit.lorempicsum.models.Photo;
 
 public interface HomeView {
@@ -19,5 +21,9 @@ public interface HomeView {
     void showErrorToast(String error);
 
     void setAuthorName(String authorName);
+
+    void startRotateAnimation(View v);
+
+    void stopRotateAnimation(View v);
 
 }
