@@ -8,4 +8,5 @@ public interface HomePresenterInterface {
 
     void getPhoto();
 
+    String convertNameToUsername(String name);
 }

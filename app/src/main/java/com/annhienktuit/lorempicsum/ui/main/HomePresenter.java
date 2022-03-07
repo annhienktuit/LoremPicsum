@@ -30,6 +30,12 @@ public class HomePresenter implements HomePresenterInterface{
         getObservable().subscribeWith(getObserver());
     }
 
+    @Override
+    public String convertNameToUsername(String name) {
+        name = name.replaceAll("\\s+","").toLowerCase();
+        return "@" + name;
+    }
+
     public Observable<Photo> getObservable(){
         int id = randomNumber();
         Log.i("Nhiennha ", "ID " + id);

@@ -123,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     @Override
     public void setAuthorName(String authorName) {
         binding.tvAuthor.setText(authorName);
+        binding.tvAuthorUsername.setText(presenter.convertNameToUsername(authorName));
     }
 
     @Override
