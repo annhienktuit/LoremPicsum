@@ -18,4 +18,6 @@ public interface HomeView {
 
     void showErrorToast(String error);
 
+    void setAuthorName(String authorName);
+
 }

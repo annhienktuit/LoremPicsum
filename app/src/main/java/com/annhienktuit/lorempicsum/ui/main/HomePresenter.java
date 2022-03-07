@@ -1,17 +1,15 @@
 package com.annhienktuit.lorempicsum.ui.main;
 
+import android.content.Context;
 import android.util.Log;
-
 import com.annhienktuit.lorempicsum.models.Photo;
 import com.annhienktuit.lorempicsum.networks.RetrofitClient;
+import com.bumptech.glide.Glide;
 
 import java.util.Random;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.observers.DisposableObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -28,6 +26,7 @@ public class HomePresenter implements HomePresenterInterface{
 
     @Override
     public void getPhoto() {
+        homeView.showLoadingIndicator();
         getObservable().subscribeWith(getObserver());
     }
 
@@ -42,8 +41,9 @@ public class HomePresenter implements HomePresenterInterface{
     public DisposableObserver<Photo> getObserver(){
         return new DisposableObserver<Photo>() {
             @Override
-            public void onNext(@NonNull Photo photo) {
+            public void onNext(@androidx.annotation.NonNull Photo photo) {
                 Log.i(TAG, photo.getImageUrl());
+                homeView.setAuthorName(photo.getAuthor());
                 homeView.hideLoadingIndicator();
                 homeView.showRandomImage(photo);
             }

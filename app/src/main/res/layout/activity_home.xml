@@ -14,9 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
             android:text="Explore"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:fontFamily="@font/lato_black"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tvWhatsNew"
@@ -25,9 +26,21 @@
             android:layout_below="@+id/tvExplore"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
             android:text="Today Random Image"
+            android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnReload"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_reload"/>
+
 
         <ProgressBar
             android:id="@+id/loadingIndicator"
@@ -59,16 +72,19 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/avatar"
-                android:layout_marginStart="20dp"/>
+                android:layout_marginStart="20dp"
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/tvAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/imgAvatar"
+                android:fontFamily="@font/lato_light"
                 android:text="Nguyen Huu An Nhien"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -80,7 +96,9 @@
                 android:layout_toRightOf="@id/imgAvatar"
                 android:layout_marginStart="10dp"
                 android:text="\@annhienkt"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:fontFamily="@font/lato_light"
+                android:textColor="@color/black"/>
 
         </RelativeLayout>
 
