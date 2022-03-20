@@ -1,5 +1,6 @@
 package com.annhienktuit.lorempicsum.ui.main;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.annhienktuit.lorempicsum.models.Photo;
@@ -25,5 +26,9 @@ public interface HomeView {
     void startRotateAnimation(View v);
 
     void stopRotateAnimation(View v);
+
+    void openBottomSheetBar();
+
+    void startSharingActivity(Intent intent);
 
 }

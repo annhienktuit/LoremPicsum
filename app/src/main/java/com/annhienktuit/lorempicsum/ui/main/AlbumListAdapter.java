@@ -34,7 +34,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.View
         index++;
         String baseURL = "https://picsum.photos/200/300/?temp=";
         Glide.with(mContext)
-                .load(baseURL + HomePresenter.randomNumber())
+                .load(baseURL + HomePresenterImpl.randomNumber())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(holder.photoItem);
     }

@@ -6,34 +6,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.annhienktuit.lorempicsum.R;
 import com.annhienktuit.lorempicsum.databinding.ActivityHomeBinding;
 import com.annhienktuit.lorempicsum.models.Photo;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class HomeActivity extends AppCompatActivity implements HomeView{
 
     ActivityHomeBinding binding;
 
-    HomePresenterInterface presenter;
+    HomePresenter presenter;
 
     ImageView imgRandom;
 
     RecyclerView recyclerViewPhotoList;
+
+    Button btnShare;
 
     private AlbumListAdapter albumListAdapter;
 
@@ -50,9 +51,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         setContentView(binding.getRoot());
         imgRandom = binding.imgRandom;
         indicator = binding.loadingIndicator;
+        btnShare = binding.btnShare;
         handleClickEvent();
         showLoadingIndicator();
-        presenter = new HomePresenter(this);
+        presenter = new HomePresenterImpl(this);
         presenter.getPhoto();
         albumListAdapter = new AlbumListAdapter(this);
         recyclerViewPhotoList = binding.recyclerViewAlbumList;
@@ -76,6 +78,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
                 albumListAdapter = null;
                 albumListAdapter = new AlbumListAdapter(getApplicationContext());
                 recyclerViewPhotoList.setAdapter(albumListAdapter);
+            }
+        });
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.sharePhoto();
             }
         });
     }
@@ -139,5 +148,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     @Override
     public void stopRotateAnimation(View v) {
         v.clearAnimation();
+    }
+
+    @Override
+    public void openBottomSheetBar() {
+
+    }
+
+    @Override
+    public void startSharingActivity(Intent intent) {
+        startActivity(Intent.createChooser(intent, "Share via"));
     }
 }

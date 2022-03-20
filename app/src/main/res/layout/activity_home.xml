@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="Explore"
+            android:text="@string/explore"
             android:textSize="40sp"
             android:fontFamily="@font/lato_black"
             android:textColor="@color/black"/>
@@ -27,7 +27,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/lato"
-            android:text="Today Random Image"
+            android:text="@string/today_random_image"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -105,16 +105,29 @@
 
         <Button
             android:id="@+id/btnSeeMore"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlAuthor"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
-            android:text="Browse More"
-            android:textColor="@color/black"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/lato"
-            android:textSize="14sp"
-            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            android:text="@string/browse_more"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnShare"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@id/btnSeeMore"
+            android:layout_below="@id/rlAuthor"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/ic_send"
+            android:backgroundTint="@color/black"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAlbumList"
