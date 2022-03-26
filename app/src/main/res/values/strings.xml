@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">LoremPicsum</string>
+    <string name="app_name">Lorem Picsum</string>
     <string name="explore">Explore</string>
     <string name="today_random_image">Today Random Image</string>
     <string name="browse_more">Browse More</string>
+    <string name="app_desc">The Lorem Ipsum for photos.</string>
 </resources>

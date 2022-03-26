@@ -23,10 +23,6 @@ public class RetrofitClient {
                     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                     .build();
         }
-
         return retrofit.create(GetPhotoService.class);
     }
-
-
-
 }

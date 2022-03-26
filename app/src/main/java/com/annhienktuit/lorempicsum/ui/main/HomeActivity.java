@@ -20,11 +20,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.annhienktuit.lorempicsum.BaseActivity;
 import com.annhienktuit.lorempicsum.databinding.ActivityHomeBinding;
 import com.annhienktuit.lorempicsum.models.Photo;
 import com.bumptech.glide.Glide;
 
-public class HomeActivity extends AppCompatActivity implements HomeView{
+public class HomeActivity extends BaseActivity implements HomeView{
 
     ActivityHomeBinding binding;
 
@@ -43,10 +44,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.WHITE);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         imgRandom = binding.imgRandom;
@@ -60,6 +57,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         recyclerViewPhotoList = binding.recyclerViewAlbumList;
         recyclerViewPhotoList.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
         recyclerViewPhotoList.setAdapter(albumListAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     private void handleClickEvent() {
