@@ -25,6 +25,9 @@ import com.annhienktuit.lorempicsum.databinding.ActivityHomeBinding;
 import com.annhienktuit.lorempicsum.models.Photo;
 import com.bumptech.glide.Glide;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class HomeActivity extends BaseActivity implements HomeView{
 
     ActivityHomeBinding binding;
@@ -52,6 +55,7 @@ public class HomeActivity extends BaseActivity implements HomeView{
         handleClickEvent();
         showLoadingIndicator();
         presenter = new HomePresenterImpl(this);
+        Executors.newCachedThreadPool().execute(() -> presenter.getPhoto());
         presenter.getPhoto();
         albumListAdapter = new AlbumListAdapter(this);
         recyclerViewPhotoList = binding.recyclerViewAlbumList;

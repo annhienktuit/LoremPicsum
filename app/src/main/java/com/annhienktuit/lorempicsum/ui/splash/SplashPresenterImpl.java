@@ -21,6 +21,6 @@ public class SplashPresenterImpl implements SplashPresenter{
             public void run() {
                 splashView.navigateToHomeActivity();
             }
-        }, 1500);
+        }, 2250);
     }
 }
