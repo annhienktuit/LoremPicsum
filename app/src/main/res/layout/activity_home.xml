@@ -34,14 +34,22 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/btnReload"
+            android:id="@+id/btnFavoriteList"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"
             android:layout_marginTop="12dp"
-            android:src="@drawable/ic_reload"/>
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_menu"/>
 
+        <ImageView
+            android:id="@+id/btnReload"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toLeftOf="@id/btnFavoriteList"
+            android:src="@drawable/ic_reload" />
 
         <ProgressBar
             android:id="@+id/loadingIndicator"

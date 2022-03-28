@@ -1,7 +1,6 @@
 package com.annhienktuit.lorempicsum.ui.main;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.annhienktuit.lorempicsum.db.DatabaseHandler;
@@ -9,6 +8,7 @@ import com.annhienktuit.lorempicsum.models.Photo;
 import com.annhienktuit.lorempicsum.networks.RetrofitClient;
 
 import java.util.Random;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -18,17 +18,19 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePresenterImpl implements HomePresenter {
 
-    HomeView homeView;
-
-    DatabaseHandler dbHelper;
-
     private final String TAG = "HomePresenter";
+    HomeView homeView;
+    DatabaseHandler dbHelper;
+    Photo currentPhoto;
 
-    public HomePresenterImpl(HomeView view){
+    public HomePresenterImpl(HomeView view) {
         this.homeView = view;
     }
 
-    Photo currentPhoto;
+    public static int randomNumber() {
+        Random ran = new Random();
+        return ran.nextInt(1000);
+    }
 
     public Photo getCurrentPhoto() {
         return currentPhoto;
@@ -42,7 +44,7 @@ public class HomePresenterImpl implements HomePresenter {
 
     @Override
     public String convertNameToUsername(String name) {
-        name = name.replaceAll("\\s+","").toLowerCase();
+        name = name.replaceAll("\\s+", "").toLowerCase();
         return "@" + name;
     }
 
@@ -68,11 +70,17 @@ public class HomePresenterImpl implements HomePresenter {
     }
 
     @Override
+    public void checkFavoritePhotoStatus() {
+        Log.i("Nhiennha ", String.valueOf(dbHelper.isPhotoFavorite(currentPhoto.getId())));
+        homeView.setFavoriteButtonStatus(dbHelper.isPhotoFavorite(currentPhoto.getId()));
+    }
+
+    @Override
     public void removeFavoritePhoto() {
         dbHelper.removeFavoritePhoto(currentPhoto);
     }
 
-    public Observable<Photo> getObservable(){
+    public Observable<Photo> getObservable() {
         int id = randomNumber();
         Log.i("Nhiennha ", "ID " + id);
         return new RetrofitClient().getPhotoService().getSinglePhoto(id)
@@ -80,7 +88,7 @@ public class HomePresenterImpl implements HomePresenter {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public DisposableObserver<Photo> getObserver(){
+    public DisposableObserver<Photo> getObserver() {
         return new DisposableObserver<Photo>() {
             @Override
             public void onNext(@NonNull Photo photo) {
@@ -89,6 +97,7 @@ public class HomePresenterImpl implements HomePresenter {
                 homeView.hideLoadingIndicator();
                 homeView.showRandomImage(photo);
                 currentPhoto = photo;
+                checkFavoritePhotoStatus();
             }
 
             @Override
@@ -102,10 +111,5 @@ public class HomePresenterImpl implements HomePresenter {
                 Log.i(TAG, "Completed");
             }
         };
-    }
-
-    public static int randomNumber() {
-        Random ran = new Random();
-        return ran.nextInt(1000);
     }
 }

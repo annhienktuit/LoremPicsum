@@ -29,6 +29,8 @@ public interface HomeView {
 
     void openBottomSheetBar();
 
+    void setFavoriteButtonStatus(boolean isLiked);
+
     void startSharingActivity(Intent intent);
 
 }

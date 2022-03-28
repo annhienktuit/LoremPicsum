@@ -20,7 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FavoriteManager.db";
     private static final int DATABASE_VERSION = 4;
 
-    public DatabaseHandler(Context context){
+    public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -41,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addFavoritePhoto(Photo photo){
+    public void addFavoritePhoto(Photo photo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID, photo.getId());
@@ -51,23 +51,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void removeFavoritePhoto(Photo photo){
+    public void removeFavoritePhoto(Photo photo) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(
                 FavoritePhotoContract.FavoriteEntry.TABLE_NAME,
                 FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID + "= ?",
-                new String[] {photo.getId()});
+                new String[]{photo.getId()});
         db.close();
     }
 
-    public List<Photo> getAllFavoritePhoto(){
+    public List<Photo> getAllFavoritePhoto() {
         List<Photo> photoList = new ArrayList<Photo>();
         String query = "SELECT * FROM " + FavoritePhotoContract.FavoriteEntry.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             Photo photoItem = new Photo(
                     cursor.getString(0),
                     null,
@@ -82,9 +82,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return photoList;
     }
 
-    public void clearDatabase(String DATABASE_NAME){
+    public boolean isPhotoFavorite(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "
+                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID + " FROM "
+                + FavoritePhotoContract.FavoriteEntry.TABLE_NAME
+                + " WHERE " + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID + "="
+                + id;
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor.getCount() > 0;
+    }
+
+    public void clearDatabase(String DATABASE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM "+ DATABASE_NAME);
+        db.execSQL("DELETE FROM " + DATABASE_NAME);
     }
 
 }

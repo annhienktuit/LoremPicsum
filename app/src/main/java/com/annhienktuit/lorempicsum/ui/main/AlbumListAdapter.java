@@ -45,7 +45,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         index++;
-        int[] heightList = {200, 250, 300};
+        int[] heightList = {350, 300, 250};
         int height = getRandom(heightList);
         holder.cardViewItem.getLayoutParams().height = dpToPx(height, mContext);
         String baseURL = "https://picsum.photos/200/" + height + "/?temp=";

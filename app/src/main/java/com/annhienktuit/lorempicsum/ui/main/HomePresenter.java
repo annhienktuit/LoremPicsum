@@ -18,5 +18,7 @@ public interface HomePresenter {
 
     void addFavoritePhoto();
 
+    void checkFavoritePhotoStatus();
+
     void removeFavoritePhoto();
 }

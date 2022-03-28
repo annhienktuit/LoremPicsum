@@ -59,8 +59,12 @@ public class HomeActivity extends BaseActivity implements HomeView{
         handleClickEvent();
         showLoadingIndicator();
         presenter = new HomePresenterImpl(this);
-        presenter.setDatabaseHandler(dbHandler);
         Executors.newCachedThreadPool().execute(() -> presenter.getPhoto());
+        presenter.setDatabaseHandler(dbHandler);
+        attachRecyclerView();
+    }
+
+    private void attachRecyclerView(){
         albumListAdapter = new AlbumListAdapter(this);
         recyclerViewPhotoList = binding.recyclerViewAlbumList;
         recyclerViewPhotoList.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
@@ -183,6 +187,11 @@ public class HomeActivity extends BaseActivity implements HomeView{
     @Override
     public void openBottomSheetBar() {
 
+    }
+
+    @Override
+    public void setFavoriteButtonStatus(boolean isLiked) {
+        btnLike.setLiked(isLiked);
     }
 
     @Override
