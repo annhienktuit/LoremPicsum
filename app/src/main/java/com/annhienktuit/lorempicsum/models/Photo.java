@@ -22,6 +22,8 @@ public class Photo {
     @SerializedName("download_url")
     private String downloadUrl;
 
+    public Photo(){}
+
     public Photo(String id, String author, int width, int height, String url, String downloadUrl) {
         this.id = id;
         this.author = author;

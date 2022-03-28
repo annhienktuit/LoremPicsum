@@ -1,7 +1,10 @@
 package com.annhienktuit.lorempicsum.ui.main;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.annhienktuit.lorempicsum.db.DatabaseHandler;
 import com.annhienktuit.lorempicsum.models.Photo;
 import com.annhienktuit.lorempicsum.networks.RetrofitClient;
 
@@ -16,6 +19,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomePresenterImpl implements HomePresenter {
 
     HomeView homeView;
+
+    DatabaseHandler dbHelper;
 
     private final String TAG = "HomePresenter";
 
@@ -50,6 +55,21 @@ public class HomePresenterImpl implements HomePresenter {
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Lorem Picsum");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
         homeView.startSharingActivity(sharingIntent);
+    }
+
+    @Override
+    public void setDatabaseHandler(DatabaseHandler dbHelper) {
+        this.dbHelper = dbHelper;
+    }
+
+    @Override
+    public void addFavoritePhoto() {
+        dbHelper.addFavoritePhoto(currentPhoto);
+    }
+
+    @Override
+    public void removeFavoritePhoto() {
+        dbHelper.removeFavoritePhoto(currentPhoto);
     }
 
     public Observable<Photo> getObservable(){

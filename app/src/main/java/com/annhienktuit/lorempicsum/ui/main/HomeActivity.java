@@ -22,8 +22,11 @@ import android.widget.Toast;
 
 import com.annhienktuit.lorempicsum.BaseActivity;
 import com.annhienktuit.lorempicsum.databinding.ActivityHomeBinding;
+import com.annhienktuit.lorempicsum.db.DatabaseHandler;
 import com.annhienktuit.lorempicsum.models.Photo;
 import com.bumptech.glide.Glide;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,6 +43,8 @@ public class HomeActivity extends BaseActivity implements HomeView{
 
     Button btnShare;
 
+    LikeButton btnLike;
+
     private AlbumListAdapter albumListAdapter;
 
     ProgressBar indicator;
@@ -49,12 +54,13 @@ public class HomeActivity extends BaseActivity implements HomeView{
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        imgRandom = binding.imgRandom;
-        indicator = binding.loadingIndicator;
-        btnShare = binding.btnShare;
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
+        dbHandler.clearDatabase("FavoritePhoto");
+        bindView();
         handleClickEvent();
         showLoadingIndicator();
         presenter = new HomePresenterImpl(this);
+        presenter.setDatabaseHandler(dbHandler);
         Executors.newCachedThreadPool().execute(() -> presenter.getPhoto());
         presenter.getPhoto();
         albumListAdapter = new AlbumListAdapter(this);
@@ -63,9 +69,16 @@ public class HomeActivity extends BaseActivity implements HomeView{
         recyclerViewPhotoList.setAdapter(albumListAdapter);
     }
 
+    private void bindView() {
+        imgRandom = binding.imgRandom;
+        indicator = binding.loadingIndicator;
+        btnShare = binding.btnShare;
+        btnLike = binding.btnLike;
+    }
+
     @Override
     public void onBackPressed() {
-
+        //Handle not allow user back to splash screen
     }
 
     private void handleClickEvent() {
@@ -93,6 +106,19 @@ public class HomeActivity extends BaseActivity implements HomeView{
                 presenter.sharePhoto();
             }
         });
+
+        btnLike.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                presenter.addFavoritePhoto();
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                presenter.removeFavoritePhoto();
+            }
+        });
+
     }
 
 
