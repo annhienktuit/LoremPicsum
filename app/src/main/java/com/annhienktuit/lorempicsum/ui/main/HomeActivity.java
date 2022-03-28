@@ -55,14 +55,12 @@ public class HomeActivity extends BaseActivity implements HomeView{
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         DatabaseHandler dbHandler = new DatabaseHandler(this);
-        dbHandler.clearDatabase("FavoritePhoto");
         bindView();
         handleClickEvent();
         showLoadingIndicator();
         presenter = new HomePresenterImpl(this);
         presenter.setDatabaseHandler(dbHandler);
         Executors.newCachedThreadPool().execute(() -> presenter.getPhoto());
-        presenter.getPhoto();
         albumListAdapter = new AlbumListAdapter(this);
         recyclerViewPhotoList = binding.recyclerViewAlbumList;
         recyclerViewPhotoList.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
@@ -115,7 +113,7 @@ public class HomeActivity extends BaseActivity implements HomeView{
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                presenter.removeFavoritePhoto();
+                //presenter.removeFavoritePhoto();
             }
         });
 

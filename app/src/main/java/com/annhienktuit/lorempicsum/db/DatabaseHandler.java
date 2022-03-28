@@ -18,7 +18,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "FavoriteManager.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,10 +27,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String Create_Favorite_Table = "CREATE TABLE "
-                + FavoritePhotoContract.FavoriteEntry.TABLE_NAME
-                + "(" + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID + "TEXT PRIMARY KEY,"
-                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_URL + "TEXT"
-                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_DOWNLOAD + "TEXT)";
+                + FavoritePhotoContract.FavoriteEntry.TABLE_NAME + " ("
+                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID + " TEXT PRIMARY KEY,"
+                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_URL + " TEXT,"
+                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_DOWNLOAD + " TEXT)";
         db.execSQL(Create_Favorite_Table);
     }
 

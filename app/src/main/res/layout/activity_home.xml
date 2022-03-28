@@ -134,13 +134,13 @@
             android:id="@+id/btnLike"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="-67dp"
+            android:layout_below="@id/rlAuthor"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:layout_toLeftOf="@+id/btnShare"
-            android:layout_below="@id/rlAuthor"
             app:icon_type="heart"
-            android:backgroundTint="@color/black"/>
+            app:unlike_drawable="@drawable/heart_off"
+            app:like_drawable="@drawable/heart_on"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAlbumList"
