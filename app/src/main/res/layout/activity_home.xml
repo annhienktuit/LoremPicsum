@@ -15,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="@string/explore"
-            android:textSize="40sp"
             android:fontFamily="@font/lato_black"
-            android:textColor="@color/black"/>
+            android:text="@string/explore"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvWhatsNew"
@@ -40,7 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_menu"/>
+            android:src="@drawable/ic_menu" />
 
         <ImageView
             android:id="@+id/btnReload"

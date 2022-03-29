@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.annhienktuit.lorempicsum.BaseActivity;
 import com.annhienktuit.lorempicsum.databinding.ActivityHomeBinding;
 import com.annhienktuit.lorempicsum.db.DatabaseHandler;
 import com.annhienktuit.lorempicsum.models.Photo;
+import com.annhienktuit.lorempicsum.ui.favorite.FavoriteActivity;
 import com.bumptech.glide.Glide;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -42,6 +44,8 @@ public class HomeActivity extends BaseActivity implements HomeView{
     RecyclerView recyclerViewPhotoList;
 
     Button btnShare;
+
+    ImageView btnFavoriteList;
 
     LikeButton btnLike;
 
@@ -76,6 +80,7 @@ public class HomeActivity extends BaseActivity implements HomeView{
         indicator = binding.loadingIndicator;
         btnShare = binding.btnShare;
         btnLike = binding.btnLike;
+        btnFavoriteList = binding.btnFavoriteList;
     }
 
     @Override
@@ -109,6 +114,13 @@ public class HomeActivity extends BaseActivity implements HomeView{
             }
         });
 
+        btnFavoriteList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFavoriteActivity();
+            }
+        });
+
         btnLike.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
@@ -117,7 +129,7 @@ public class HomeActivity extends BaseActivity implements HomeView{
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                //presenter.removeFavoritePhoto();
+                presenter.removeFavoritePhoto();
             }
         });
 
@@ -197,5 +209,10 @@ public class HomeActivity extends BaseActivity implements HomeView{
     @Override
     public void startSharingActivity(Intent intent) {
         startActivity(Intent.createChooser(intent, "Share via"));
+    }
+
+    @Override
+    public void startFavoriteActivity() {
+        startActivity(new Intent(this, FavoriteActivity.class));
     }
 }

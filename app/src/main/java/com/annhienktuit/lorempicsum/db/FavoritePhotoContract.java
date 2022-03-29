@@ -14,6 +14,7 @@ public final class FavoritePhotoContract {
         public static final String COLUMN_NAME_PHOTO_ID = "id";
         public static final String COLUMN_NAME_URL = "url";
         public static final String COLUMN_NAME_DOWNLOAD = "download_url";
+        public static final String COLUMN_NAME_AUTHOR = "author";
     }
 
 }

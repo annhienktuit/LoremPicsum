@@ -33,4 +33,6 @@ public interface HomeView {
 
     void startSharingActivity(Intent intent);
 
+    void startFavoriteActivity();
+
 }

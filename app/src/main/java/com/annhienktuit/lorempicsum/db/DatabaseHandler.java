@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "FavoriteManager.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +31,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + FavoritePhotoContract.FavoriteEntry.TABLE_NAME + " ("
                 + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID + " TEXT PRIMARY KEY,"
                 + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_URL + " TEXT,"
-                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_DOWNLOAD + " TEXT)";
+                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_DOWNLOAD + " TEXT,"
+                + FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_AUTHOR + " TEXT)";
         db.execSQL(Create_Favorite_Table);
     }
 
@@ -47,6 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_PHOTO_ID, photo.getId());
         values.put(FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_URL, photo.getUrl());
         values.put(FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_DOWNLOAD, photo.getImageUrl());
+        values.put(FavoritePhotoContract.FavoriteEntry.COLUMN_NAME_AUTHOR, photo.getAuthor());
         db.insert(FavoritePhotoContract.FavoriteEntry.TABLE_NAME, null, values);
         db.close();
     }
@@ -70,7 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         while (!cursor.isAfterLast()) {
             Photo photoItem = new Photo(
                     cursor.getString(0),
-                    null,
+                    cursor.getString(3),
                     0,
                     0,
                     cursor.getString(1),
@@ -80,6 +83,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return photoList;
+    }
+
+    public int countItem(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        return (int)DatabaseUtils.queryNumEntries(db, FavoritePhotoContract.FavoriteEntry.TABLE_NAME);
     }
 
     public boolean isPhotoFavorite(String id) {

@@ -20,7 +20,7 @@ public class HomePresenterImpl implements HomePresenter {
 
     private final String TAG = "HomePresenter";
     HomeView homeView;
-    DatabaseHandler dbHelper;
+    DatabaseHandler dbHandler;
     Photo currentPhoto;
 
     public HomePresenterImpl(HomeView view) {
@@ -61,23 +61,23 @@ public class HomePresenterImpl implements HomePresenter {
 
     @Override
     public void setDatabaseHandler(DatabaseHandler dbHelper) {
-        this.dbHelper = dbHelper;
+        this.dbHandler = dbHelper;
     }
 
     @Override
     public void addFavoritePhoto() {
-        dbHelper.addFavoritePhoto(currentPhoto);
+        dbHandler.addFavoritePhoto(currentPhoto);
     }
 
     @Override
     public void checkFavoritePhotoStatus() {
-        Log.i("Nhiennha ", String.valueOf(dbHelper.isPhotoFavorite(currentPhoto.getId())));
-        homeView.setFavoriteButtonStatus(dbHelper.isPhotoFavorite(currentPhoto.getId()));
+        Log.i("Nhiennha ", String.valueOf(dbHandler.isPhotoFavorite(currentPhoto.getId())));
+        homeView.setFavoriteButtonStatus(dbHandler.isPhotoFavorite(currentPhoto.getId()));
     }
 
     @Override
     public void removeFavoritePhoto() {
-        dbHelper.removeFavoritePhoto(currentPhoto);
+        dbHandler.removeFavoritePhoto(currentPhoto);
     }
 
     public Observable<Photo> getObservable() {
